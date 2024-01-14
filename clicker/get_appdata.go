@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 
-	_ "github.com/celestix/gotgproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"

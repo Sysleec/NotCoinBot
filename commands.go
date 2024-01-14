@@ -23,5 +23,10 @@ func commands() map[string]cliCommands {
 			description: "Start the NotCoinBot",
 			callback:    commandStart,
 		},
+		"create": {
+			name:        "create <name>",
+			description: "Creating a tg session (name can be any)",
+			callback:    commandCreate,
+		},
 	}
 }

@@ -125,11 +125,10 @@ func getRandomint(min, max, coef int) int {
 
 func parseRespclick(content []byte) *Click_resp {
 	var response Click_resp
-	fmt.Println(string(content))
 	err := json.Unmarshal(content, &response)
 	if err != nil {
 		ErrorLogger.Println("Error on unmarshal click response, err =", err)
-		return nil
+		return &Click_resp{Ok: false}
 	}
 	return &response
 }
@@ -180,8 +179,8 @@ func (Notcoin *Notcoin) click() {
 		Notcoin.TurboActivate()
 	}
 
-	if parsed_resp.Ok {
-		SuccessLogger.Printf("[%d] clicked and get %d coins, status = %d, next Turbo = %v, balance = %d\n", Notcoin.UserId, count, resp.status, Notcoin.Turbo, Notcoin.BalanceCoins)
+	if parsed_resp.Ok && resp.status < 400 {
+		SuccessLogger.Printf("[%d] clicked and get %d coins, status = %d, balance = %d\n", Notcoin.UserId, count, resp.status, Notcoin.BalanceCoins)
 	} else {
 		WarningLogger.Printf("[%d] not success clicked %d times, status = %d\n", Notcoin.UserId, count, resp.status)
 	}

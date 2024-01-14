@@ -3,18 +3,45 @@ package clicker
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/joho/godotenv"
 	"io/fs"
 	"io/ioutil"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
-
-	"github.com/joho/godotenv"
 )
 
 func init() {
+	// Check if .env file exists
+	_, err := os.Stat(".env")
+	if os.IsNotExist(err) {
+		data := []byte(`enable_daily_boosters = 1 # 1 = enable
+# update to max lvl in the shop:
+max_tapbot = 0
+max_multitab = 8
+max_recharging = 3
+max_energy_limit = 9
+sleep_after_click_min = 5 # seconds
+sleep_after_click_max = 15 # seconds
+sleep_when_energy_runs_out_min = 60 # seconds
+sleep_when_energy_runs_out_max = 110 # seconds
+`)
+		err = os.WriteFile(".env", data, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	_, err = os.Stat("./sessions")
+	if os.IsNotExist(err) {
+		errDir := os.MkdirAll("./sessions", 0755)
+		if errDir != nil {
+			return
+		}
+	}
 	if err := os.Truncate("logs.txt", 0); err != nil {
 		ErrorLogger.Fatalln(err)
 	}
@@ -34,8 +61,12 @@ func (notcoin *Notcoin) Set_default_values() {
 func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 	defer wg.Done()
 	var sleep_time int
-	var is_slept bool = true
-	var userid int = notcoin.UserId
+	var is_slept = true
+	var userid = notcoin.UserId
+	var sleep_after_click_min, _ = strconv.Atoi(os.Getenv("sleep_after_click_min"))
+	var sleep_after_click_max, _ = strconv.Atoi(os.Getenv("sleep_after_click_max"))
+	var sleep_when_energy_runs_out_min, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_min"))
+	var sleep_when_energy_runs_out_max, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_max"))
 	InfoLogger.Printf("[%v] Starting thread id = %v, Name = %v, Proxy = %v", userid, userid, notcoin.Clear_name, notcoin.Proxy)
 	notcoin.Ses = CreateSession()
 
@@ -73,9 +104,9 @@ func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 					continue
 				}
 			}
-			InfoLogger.Printf("[%v] AvailableCoins is done, wait 50-100 seconds....\n", userid)
+			InfoLogger.Printf("[%v] AvailableCoins is done, wait %d-%d seconds....\n", userid, sleep_when_energy_runs_out_min, sleep_when_energy_runs_out_max)
 			notcoin.LastAvailableCoins += getRandomint(1, 30, 1)
-			sleep_time = getRandomint(51, 98, 1)
+			sleep_time = getRandomint(sleep_when_energy_runs_out_min, sleep_when_energy_runs_out_max, 1)
 			time.Sleep(time.Second * time.Duration(sleep_time))
 			is_slept = true
 			continue
@@ -108,7 +139,7 @@ func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 			continue
 		}
 
-		sleep_time = getRandomint(2, 13, 1)
+		sleep_time = getRandomint(sleep_after_click_min, sleep_after_click_max, 1)
 		InfoLogger.Printf("[%v] wait %v seconds...\n", userid, sleep_time)
 		time.Sleep(time.Second * time.Duration(sleep_time))
 
