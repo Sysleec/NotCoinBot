@@ -18,5 +18,10 @@ func commands() map[string]cliCommands {
 			description: "Exit the NotCoinBot",
 			callback:    commandExit,
 		},
+		"start": {
+			name:        "start",
+			description: "Start the NotCoinBot",
+			callback:    commandStart,
+		},
 	}
 }
