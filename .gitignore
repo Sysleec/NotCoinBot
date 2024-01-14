@@ -8,6 +8,10 @@
 *.so
 *.dylib
 /tests
+.idea
+sessions
+accounts.json
+logs.txt
 
 # Test binary, built with `go test -c`
 *.test
