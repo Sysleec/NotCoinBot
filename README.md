@@ -1,4 +1,3 @@
-Author: https://t.me/sysleec
 # NotCoinBot
 ## _Optimized, best, fastest clicker and bot for telegram NotCoin game_
 
