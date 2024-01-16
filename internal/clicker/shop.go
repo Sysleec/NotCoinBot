@@ -25,7 +25,7 @@ func (not *Notcoin) ActiveTask(idTask int) bool {
 	}
 
 	resp := not.Ses.Postreq(fmt.Sprintf("%v%d", url_task, idTask), "{}")
-	fmt.Println(resp.String())
+	//fmt.Println(resp.String())
 	parsedResp := parseRespclick(resp.body)
 
 	if parsedResp.Ok {

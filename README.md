@@ -1,7 +1,7 @@
 # NotCoinBot
 ## _Optimized, best, fastest clicker and bot for telegram NotCoin game_
 
-![N|Solid](https://i.imgur.com/a5JM4vI.png)
+![N|Solid](https://s13.gifyu.com/images/S0WZx.gif)
 
 ## Features
 
@@ -21,13 +21,13 @@
 + Next, you will need to create sessions if you do not already have them
     + Enter "create <Session Name>" in the bot (for example, "create bot1". The session name can be anything)
     + Next, you will need to enter the authorization data
-    + Optional: You can also add a SOCKS5 proxy or leave the field empty if you do not want to use a proxy.
-    + Optional: AppID and ApiHash you can get here https://my.telegram.org/apps
+    + Optional: You can also add a SOCKS5 proxy or leave the field empty. To skip, just press enter
+    + Optional: AppID and ApiHash you can get here https://my.telegram.org/apps. To skip, just press enter
 + After creating all the sessions you need, you can start
     + Just enter "start" and the bot will automatically start
 # Enjoy!
 
-My [TG channel](https://t.me/notcoin_lions) 
+My [TG channel](https://t.me/NotcoinLions) 
 
 ## If you liked the bot, you can also support me
 # Donate:
@@ -41,7 +41,7 @@ My [TG channel](https://t.me/notcoin_lions)
 
 ## _Оптимизированный, лучший, быстрый кликер и бот для NotCoin_
 
-![N|Solid](https://i.imgur.com/a5JM4vI.png)
+![N|Solid](https://s13.gifyu.com/images/S0WZx.gif)
 
 ## Функции
 
@@ -59,15 +59,15 @@ My [TG channel](https://t.me/notcoin_lions)
     + Создайте отдельную папку для бота
     + Перемеместите туда скачанный файл
 + Далее, вам нужно создать сессии, если их еще нет
-    + Введите "create <Имя сессии>" в боте (дял примера, "create bot1". Имя сессии может быть любым)
+    + Введите "create <Имя сессии>" в боте (для примера, "create bot1". Имя сессии может быть любым)
     + Далее, вам нужно ввести данные для авторизации
-    + Дополнительно: Вы так же можете указать SOCKS5 прокси или оставить поле пустым, если не хотите его использовать
-    + Дополнительно: AppID и ApiHash вы можете получить здесь https://my.telegram.org/apps
+    + Дополнительно: Вы так же можете указать SOCKS5 прокси или оставить поле пустым. Для пропуска нажмите enter
+    + Дополнительно: AppID и ApiHash вы можете получить здесь https://my.telegram.org/apps. Для пропуска нажмите enter
 + После создания всех нужных сессий вы можете начать
     + Просто введите "start" и бот автоматически запуститься
 # Удачи!
 
-Мой [ТГ канал](https://t.me/notcoin_lions) 
+Мой [ТГ канал](https://t.me/NotcoinLions) 
 
 ## Если вам понравился бот, вы так же можете меня поддержать
 ## Донат:

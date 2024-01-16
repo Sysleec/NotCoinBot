@@ -5,11 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
-	"strconv"
-
 	"github.com/celestix/gotgproto"
 	"github.com/celestix/gotgproto/sessionMaker"
+	"os"
+	"strconv"
 )
 
 type User struct {
@@ -32,14 +31,14 @@ func commandCreate(cfg *Config, args ...string) error {
 	scanner.Scan()
 	phone := scanner.Text()
 
-	fmt.Print("Enter Proxy (example SOCKS5://login:pass@127.0.0.1:8080, can be empty): ")
+	fmt.Print("Enter Proxy (example SOCKS5://login:pass@127.0.0.1:8080, can be empty, enter to skip): ")
 	scanner.Scan()
 	proxy := scanner.Text()
 
-	fmt.Print("Enter AppID (from https://my.telegram.org/apps, optional, can be empty): ")
+	fmt.Print("Enter AppID (from https://my.telegram.org/apps, optional, can be empty, enter to skip): ")
 	scanner.Scan()
 	appID := scanner.Text()
-	fmt.Print("Enter ApiHash (from https://my.telegram.org/apps, optional, can be empty): ")
+	fmt.Print("Enter ApiHash (from https://my.telegram.org/apps, optional, can be empty, enter to skip): ")
 	scanner.Scan()
 	apiHash := scanner.Text()
 
@@ -58,6 +57,21 @@ func commandCreate(cfg *Config, args ...string) error {
 		return errors.New("wrong appID, (example - 28378932)")
 	}
 
+	file, err := os.OpenFile("accounts.json", os.O_RDWR|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	defer file.Close()
+
+	users := make(map[string]User)
+	json.NewDecoder(file).Decode(&users)
+
+	_, ok := users[sessionName]
+	if ok {
+		return errors.New("session already exists")
+	}
+
 	clientType := gotgproto.ClientType{
 		Phone: phone,
 	}
@@ -74,7 +88,6 @@ func commandCreate(cfg *Config, args ...string) error {
 			Session: sessionMaker.SqliteSession(fmt.Sprintf("./sessions//%v", sessionName)),
 		},
 	)
-
 	if err != nil {
 		return errors.New("can't authorize")
 	}
@@ -84,16 +97,6 @@ func commandCreate(cfg *Config, args ...string) error {
 		APIHash: apiHash,
 		Proxy:   proxy,
 	}
-
-	file, err := os.OpenFile("accounts.json", os.O_RDWR|os.O_CREATE, 0644)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	defer file.Close()
-
-	users := make(map[string]User)
-	json.NewDecoder(file).Decode(&users)
 
 	users[sessionName] = newUser
 

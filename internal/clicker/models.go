@@ -49,6 +49,11 @@ type Click_resp struct {
 	Data []Click_respdata //`json:"data"`
 }
 
+type Click_resp_no_slice struct {
+	Ok   bool           `json:"ok"`
+	Data Click_respdata //`json:"data"`
+}
+
 type Active_turbo_data struct {
 	Multiple int   `json:"multiple"`
 	Expire   int64 `json:"expire"`

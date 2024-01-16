@@ -44,6 +44,7 @@ func main() {
 	fmt.Println("For start you need to create sessions with 'create <name>'")
 	fmt.Println("To run the clicker, write 'start'")
 	fmt.Println("For help write 'help'")
+	fmt.Println()
 	color.Unset()
 	cfg := Config{}
 

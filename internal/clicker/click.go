@@ -19,7 +19,7 @@ func checkHashShit(checkCode string) (bool, int) {
 	shit2 := "window.location.host == 'clicker.joincommunity.xyz' ? 129 : 578"
 
 	if strings.Contains(checkCode, shit1) && strings.Contains(checkCode, shit11) {
-		return true, -1 // 5||10
+		return true, 5 // 5||10
 	}
 	if strings.Contains(checkCode, shit0) {
 		return true, 1
@@ -127,8 +127,13 @@ func parseRespclick(content []byte) *Click_resp {
 	var response Click_resp
 	err := json.Unmarshal(content, &response)
 	if err != nil {
-		ErrorLogger.Println("Error on unmarshal click response, err =", err)
-		return &Click_resp{Ok: false}
+		var respnoslice Click_resp_no_slice
+		err := json.Unmarshal(content, &respnoslice)
+		if err != nil {
+			ErrorLogger.Println("Error on unmarshal click response, err =", err)
+			return &Click_resp{Ok: false}
+		}
+		return &Click_resp{Ok: respnoslice.Ok, Data: []Click_respdata{respnoslice.Data}}
 	}
 	return &response
 }

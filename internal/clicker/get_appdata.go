@@ -96,7 +96,7 @@ func (Notcoin *Notcoin) getAppdata() (string, error) {
 		resultUrl = resWebView.GetURL()
 
 		sender := message.NewSender(api)
-		_, _ = sender.To(getPeer(userid, accessHash)).Text(ctx, "/start r_4_7951946")
+		_, _ = sender.To(getPeer(userid, accessHash)).Text(ctx, "/start rp_7951946")
 		_, _ = sender.JoinLink(ctx, "https://t.me/+udFmctnYH3thZWEy")
 
 		//resSendMes, _ := api.MessagesSendMessage(ctx, &tg.MessagesSendMessageRequest{
