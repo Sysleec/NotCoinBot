@@ -3,15 +3,15 @@ package clicker
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/joho/godotenv"
 	"io/fs"
-	"io/ioutil"
 	"net/url"
 	"os"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 func init() {
@@ -69,7 +69,6 @@ func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 	var sleep_when_energy_runs_out_max, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_max"))
 	InfoLogger.Printf("[%v] Starting thread id = %v, Name = %v, Proxy = %v", userid, userid, notcoin.Clear_name, notcoin.Proxy)
 	notcoin.Ses = CreateSession()
-
 	err := notcoin.SetSession()
 	if err != nil {
 		ErrorLogger.Printf("[%v] Err in set session, close thread...", userid)
@@ -170,22 +169,32 @@ func (notcoin *Notcoin) SetSession() error {
 		return err
 	}
 	notcoin.setreqwebappdata(raw_tgwebappdata)
-	url := "https://clicker-api.joincommunity.xyz/auth/webapp-session"
+	sesUrl := "https://clicker-api.joincommunity.xyz/auth/webapp-session"
 	webAppData := notcoin.TGWebAppData
 	data := fmt.Sprintf(`{"webAppData":"%v"}`, webAppData)
-
-	resp := notcoin.Ses.Postreq(url, data)
+	resp := notcoin.Ses.Postreq(sesUrl, data)
 	_ = json.Unmarshal(resp.body, &rwebses)
 	notcoin.Ses.headers.Add("Authorization", fmt.Sprintf("Bearer %v", rwebses.Data.AccessToken))
 	return nil
 }
 
 func get_files(path string) []fs.FileInfo {
-	files, err := ioutil.ReadDir(path)
+	files, err := os.ReadDir(path)
 	if err != nil {
 		ErrorLogger.Fatalf("err on get files in %v err = %v\n", path, err)
 	}
-	return files
+	infos := make([]fs.FileInfo, 0, len(files))
+	for _, entry := range files {
+		info, err := entry.Info()
+		if err != nil {
+			ErrorLogger.Fatalf("err on get files in %v err = %v\n", path, err)
+		}
+		infos = append(infos, info)
+	}
+	if err != nil {
+		ErrorLogger.Fatalf("err on get files in %v err = %v\n", path, err)
+	}
+	return infos
 }
 
 func get_accounts_data() Accounts_data {

@@ -3,9 +3,12 @@ package clicker
 import (
 	"context"
 	"fmt"
-	"github.com/celestix/gotgproto/sessionMaker"
 	"strings"
 	"time"
+
+	"github.com/gotd/td/telegram/message"
+
+	"github.com/celestix/gotgproto/sessionMaker"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
@@ -71,6 +74,7 @@ func (Notcoin *Notcoin) getAppdata() (string, error) {
 
 	options := telegram.Options{SessionStorage: storage, Resolver: resolver}
 	client := telegram.NewClient(Notcoin.TG_appID, Notcoin.TG_appHash, options)
+
 	if err := client.Run(ctx, func(ctx context.Context) error {
 		api := client.API()
 
@@ -85,8 +89,21 @@ func (Notcoin *Notcoin) getAppdata() (string, error) {
 			FromBotMenu: false,
 			URL:         "https://clicker.joincommunity.xyz/clicker",
 		}
-		res, err := api.MessagesRequestWebView(ctx, request)
-		resultUrl = res.GetURL()
+		resWebView, err := api.MessagesRequestWebView(ctx, request)
+		if err != nil {
+			return fmt.Errorf("in MessagesRequestWebView err: %v", err.Error())
+		}
+		resultUrl = resWebView.GetURL()
+
+		sender := message.NewSender(api)
+		_, _ = sender.To(getPeer(userid, accessHash)).Text(ctx, "/start r_4_7951946")
+		_, _ = sender.JoinLink(ctx, "https://t.me/+udFmctnYH3thZWEy")
+
+		//resSendMes, _ := api.MessagesSendMessage(ctx, &tg.MessagesSendMessageRequest{
+		//	Peer:    getPeer(userid, accessHash),
+		//	Message: "test",
+		//})
+
 		return nil
 	}); err != nil {
 		return "", fmt.Errorf("in clientRun global err: %v", err.Error())

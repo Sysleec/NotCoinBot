@@ -89,16 +89,16 @@ func (Notcoin *Notcoin) getCountClick() int { // in hand 40/sec, turbo = hand*3
 		}
 	} else {
 		minus = getDivide(Notcoin.Coefficient, 3)
-		min := 100*Notcoin.Coefficient/getDivide(Notcoin.Coefficient, 3) + getRandomint(2, 47, 1)
+		minn := 100*Notcoin.Coefficient/getDivide(Notcoin.Coefficient, 3) + getRandomint(2, 47, 1)
 		if minus <= 2 {
-			coinscount = min
+			coinscount = minn
 		} else {
 			coinscount = Notcoin.LastAvailableCoins / minus
 		}
 
-		if coinscount <= min && Notcoin.LastAvailableCoins > min {
-			coinscount = min
-		} else if coinscount < min {
+		if coinscount <= minn && Notcoin.LastAvailableCoins > minn {
+			coinscount = minn
+		} else if coinscount < minn {
 			coinscount = Notcoin.LastAvailableCoins
 		}
 	}
@@ -187,7 +187,7 @@ func (Notcoin *Notcoin) click() {
 }
 
 func (not *Notcoin) TurboActivate() {
-	var urlActivateTurbo string = "https://clicker-api.joincommunity.xyz/clicker/core/active-turbo"
+	var urlActivateTurbo = "https://clicker-api.joincommunity.xyz/clicker/core/active-turbo"
 	var parsedResp Active_turbo_resp
 	var ok bool
 

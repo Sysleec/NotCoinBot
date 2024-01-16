@@ -28,20 +28,30 @@ func commandCreate(cfg *Config, args ...string) error {
 
 	scanner := bufio.NewScanner(os.Stdin)
 
-	fmt.Print("Enter AppID (from https://my.telegram.org/apps ): ")
-	scanner.Scan()
-	appID := scanner.Text()
-	fmt.Print("Enter ApiHash (from https://my.telegram.org/apps ): ")
-	scanner.Scan()
-	apiHash := scanner.Text()
-
-	fmt.Print("Enter your tg phone number: ")
+	fmt.Print("Enter tg phone number: ")
 	scanner.Scan()
 	phone := scanner.Text()
 
 	fmt.Print("Enter Proxy (example SOCKS5://login:pass@127.0.0.1:8080, can be empty): ")
 	scanner.Scan()
 	proxy := scanner.Text()
+
+	fmt.Print("Enter AppID (from https://my.telegram.org/apps, optional, can be empty): ")
+	scanner.Scan()
+	appID := scanner.Text()
+	fmt.Print("Enter ApiHash (from https://my.telegram.org/apps, optional, can be empty): ")
+	scanner.Scan()
+	apiHash := scanner.Text()
+
+	var defaultApiID = os.Getenv("defaultApiID")
+	var defaultApiHash = os.Getenv("defaultApiHash")
+
+	if appID == "" {
+		appID = defaultApiID
+	}
+	if apiHash == "" {
+		apiHash = defaultApiHash
+	}
 
 	appidINT, err := strconv.Atoi(appID)
 	if err != nil {

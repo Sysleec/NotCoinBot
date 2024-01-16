@@ -9,10 +9,10 @@ import (
 )
 
 var (
-	url_store         string = "https://clicker-api.joincommunity.xyz/clicker/store/merged"
-	url_buy           string = "https://clicker-api.joincommunity.xyz/clicker/store/buy/"
-	url_task          string = "https://clicker-api.joincommunity.xyz/clicker/task/"
-	url_combine_compl string = "https://clicker-api.joincommunity.xyz/clicker/task/combine-completed"
+	url_store         = "https://clicker-api.joincommunity.xyz/clicker/store/merged"
+	url_buy           = "https://clicker-api.joincommunity.xyz/clicker/store/buy/"
+	url_task          = "https://clicker-api.joincommunity.xyz/clicker/task/"
+	url_combine_compl = "https://clicker-api.joincommunity.xyz/clicker/task/combine-completed"
 )
 
 func (not *Notcoin) ActiveTask(idTask int) bool {

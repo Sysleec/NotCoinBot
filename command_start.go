@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Sysleec/NotCoinBot/clicker"
+	"github.com/Sysleec/NotCoinBot/internal/clicker"
 )
 
 func commandStart(cfg *Config, args ...string) error {
