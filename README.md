@@ -1,13 +1,14 @@
 # NotCoinBot
 ## _Optimized, best, fastest clicker and bot for telegram NotCoin game_
 
-![N|Solid](https://s13.gifyu.com/images/S0WZx.gif)
+![](https://github.com/Sysleec/NotCoinBot/blob/main/preview.gif)
 
 ## Features
 
 - ✨Multithreading ✨
 - Very low computer resource consumption
 - Support socks5 proxy for every session
+- Auto activate turbo and fullenergy
 - Auto purchase of boosts in the store
 - Random sleep time after a click
 - Random sleep time when energy runs out
@@ -41,13 +42,14 @@ My [TG channel](https://t.me/NotcoinLions)
 
 ## _Оптимизированный, лучший, быстрый кликер и бот для NotCoin_
 
-![N|Solid](https://s13.gifyu.com/images/S0WZx.gif)
+![](https://github.com/Sysleec/NotCoinBot/blob/main/preview.gif)
 
 ## Функции
 
 - ✨Многопоточность✨
 - Очень низкое потребление ресурсов ПК
 - Поддержка socks5 прокси для каждой сессии
+- Авто активация турбо и энергии
 - Авто покупка бустов в магазине
 - Случайное время сна после клика
 - Случайное время сна после истощения энергии
