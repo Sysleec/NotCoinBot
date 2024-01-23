@@ -133,10 +133,10 @@ func parseRespclick(content []byte) *Click_resp {
 		err := json.Unmarshal(content, &respnoslice)
 		if err != nil {
 			fmt.Println(string(content))
-			ErrorLogger.Println("Error on unmarshal click response, err =", err.Error())
+			ErrorLogger.Println("Error on unmarshal click response, err =", err)
 			return &Click_resp{Ok: false}
 		}
-		return &Click_resp{Ok: respnoslice.Ok, Data: []Click_respdata{respnoslice.Data[0]}}
+		return &Click_resp{Ok: respnoslice.Ok, Data: []Click_respdata{respnoslice.Data}}
 	}
 	return &response
 }
@@ -202,6 +202,7 @@ func (not *Notcoin) TurboActivate() {
 	var ok bool
 
 	resp := not.Ses.Postreq(urlActivateTurbo, "{}")
+
 	err := json.Unmarshal(resp.body, &parsedResp)
 	if err != nil {
 		ErrorLogger.Println("Error on unmarshal turbo activate, err =", err)

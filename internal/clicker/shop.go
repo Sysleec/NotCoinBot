@@ -77,9 +77,10 @@ func (not *Notcoin) UpdateShop() {
 	var max_energy_limit, _ = strconv.Atoi(os.Getenv("max_energy_limit")) //# id= 1
 
 	shop_resp := not.Ses.Getreq(url_store)
+	fmt.Println("shop 80 shopresppbody", shop_resp.String())
 	err := json.Unmarshal(shop_resp.body, &parsed_resp)
 	if err != nil {
-		WarningLogger.Printf("[%v] update shop items is not ok, err: %v\n", not.UserId, err)
+		WarningLogger.Printf("[%v] update shop items is not ok, err: %v\n", not.UserId, err.Error())
 		return
 	}
 	if !parsed_resp.OK {
@@ -129,11 +130,16 @@ func (not *Notcoin) UpdateShop() {
 
 func (not *Notcoin) UpdateBoosters() {
 	var resp_parsed Task_completed_resp
-	var energy_count int = 3
-	var turbo_count int = 3
+	var energy_count = 3
+	var turbo_count = 3
 
 	resp := not.Ses.Getreq(url_combine_compl)
-	json.Unmarshal(resp.body, &resp_parsed)
+
+	err := json.Unmarshal(resp.body, &resp_parsed)
+	if err != nil {
+		WarningLogger.Printf("[%v] update boosters is not ok, err: %v\n", not.UserId, err)
+		return
+	}
 	if !resp_parsed.Ok == true {
 		WarningLogger.Printf("[%v] update boosters is not ok, response: %v\n", not.UserId, resp.String())
 		return

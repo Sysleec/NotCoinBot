@@ -50,8 +50,8 @@ type Click_resp struct {
 }
 
 type Click_resp_no_slice struct {
-	Ok   bool             `json:"ok"`
-	Data []Click_respdata `json:"data"`
+	Ok   bool           `json:"ok"`
+	Data Click_respdata `json:"data"`
 }
 
 type Active_turbo_data struct {
@@ -151,7 +151,7 @@ type Item_buying struct {
 	LimitCoins         int       `json:"limitCoins"`
 	TotalCoins         string    `json:"totalCoins"`
 	BalanceCoins       string    `json:"balanceCoins"`
-	SpentCoins         int       `json:"spentCoins"`
+	SpentCoins         string    `json:"spentCoins"`
 	MiningPerTime      int       `json:"miningPerTime"`
 	MultipleClicks     int       `json:"multipleClicks"`
 	AutoClicks         int       `json:"autoClicks"`
