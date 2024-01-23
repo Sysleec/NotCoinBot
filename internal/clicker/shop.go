@@ -33,6 +33,8 @@ func (not *Notcoin) ActiveTask(idTask int) bool {
 		switch taskName {
 		case "FullEnergy":
 			not.Fullenergy_boost--
+			//conv to int
+			//limCoinsINT, _ := strconv.Atoi(not.LimitCoins)
 			not.LastAvailableCoins = not.LimitCoins
 		case "Turbo":
 			not.Turbo_boost_count++
@@ -105,8 +107,11 @@ func (not *Notcoin) UpdateShop() {
 			continue
 		}
 
+		//conv to int
+		bal, _ := strconv.Atoi(not.BalanceCoins)
+
 		if item_count > item.Count &&
-			not.BalanceCoins >= item.Price &&
+			bal >= item.Price &&
 			item.Status == "active" {
 			isok, respstr = not.BuyItem(item.ID)
 			if isok {

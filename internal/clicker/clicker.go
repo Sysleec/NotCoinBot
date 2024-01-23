@@ -54,6 +54,10 @@ defaultApiHash="0c7c1205d7ade1336b4ea0c1fd0fb33c"
 }
 
 func (notcoin *Notcoin) Set_default_values() {
+	//conv to int
+
+	// limRand := getRandomint(148, 170, 1)
+	// limCoinsINT := strconv.Itoa(limRand)
 	notcoin.LimitCoins = getRandomint(148, 170, 1)
 	notcoin.LastAvailableCoins = getRandomint(1, 147, 1)
 	notcoin.Coefficient = 1

@@ -29,8 +29,8 @@ type Click_respdata struct {
 	LeagueId           int         `json:"leagueId"`
 	LimitCoins         int         `json:"limitCoins"`
 	TotalCoins         string      `json:"totalCoins"`
-	BalanceCoins       int         `json:"balanceCoins"`
-	SpentCoins         int         `json:"spentCoins"`
+	BalanceCoins       string      `json:"balanceCoins"`
+	SpentCoins         string      `json:"spentCoins"`
 	MiningPerTime      int         `json:"miningPerTime"`
 	MultipleClicks     int         `json:"multipleClicks"`
 	AutoClicks         int         `json:"autoClicks"`
@@ -46,12 +46,12 @@ type Click_respdata struct {
 
 type Click_resp struct {
 	Ok   bool             `json:"ok"`
-	Data []Click_respdata //`json:"data"`
+	Data []Click_respdata `json:"data"`
 }
 
 type Click_resp_no_slice struct {
-	Ok   bool           `json:"ok"`
-	Data Click_respdata //`json:"data"`
+	Ok   bool             `json:"ok"`
+	Data []Click_respdata `json:"data"`
 }
 
 type Active_turbo_data struct {
@@ -82,7 +82,7 @@ type Notcoin struct {
 	Count_400          int
 	LimitCoins         int
 	LastAvailableCoins int
-	BalanceCoins       int
+	BalanceCoins       string
 	Turbo              bool
 	Timestart_turbo    int64
 	Turbo_boost_count  int
@@ -150,7 +150,7 @@ type Item_buying struct {
 	LeagueID           int       `json:"leagueId"`
 	LimitCoins         int       `json:"limitCoins"`
 	TotalCoins         string    `json:"totalCoins"`
-	BalanceCoins       int       `json:"balanceCoins"`
+	BalanceCoins       string    `json:"balanceCoins"`
 	SpentCoins         int       `json:"spentCoins"`
 	MiningPerTime      int       `json:"miningPerTime"`
 	MultipleClicks     int       `json:"multipleClicks"`

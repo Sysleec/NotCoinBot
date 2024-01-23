@@ -79,7 +79,9 @@ func (Notcoin *Notcoin) getCountClick() int { // in hand 40/sec, turbo = hand*3
 	var coinscount int
 	var minus int
 	if Notcoin.Turbo {
-		minus = getRandomint(132, 311, 1)
+		//conv to int
+		// limCoinsINT, _ := strconv.Atoi(Notcoin.LimitCoins)
+		// minus = getRandomint(132, 311, 1)
 		coinscount = Notcoin.LimitCoins/4 - minus
 		if Notcoin.Timestart_turbo == 0 {
 			Notcoin.Timestart_turbo = time.Now().Unix()
@@ -130,10 +132,11 @@ func parseRespclick(content []byte) *Click_resp {
 		var respnoslice Click_resp_no_slice
 		err := json.Unmarshal(content, &respnoslice)
 		if err != nil {
-			ErrorLogger.Println("Error on unmarshal click response, err =", err)
+			fmt.Println(string(content))
+			ErrorLogger.Println("Error on unmarshal click response, err =", err.Error())
 			return &Click_resp{Ok: false}
 		}
-		return &Click_resp{Ok: respnoslice.Ok, Data: []Click_respdata{respnoslice.Data}}
+		return &Click_resp{Ok: respnoslice.Ok, Data: []Click_respdata{respnoslice.Data[0]}}
 	}
 	return &response
 }
@@ -176,6 +179,8 @@ func (Notcoin *Notcoin) click() {
 		Notcoin.Hash = -1
 	}
 
+	//conv to int
+	// limCoinsINT, _ := strconv.Atoi(Notcoin.LimitCoins)
 	if Notcoin.LastAvailableCoins < Notcoin.LimitCoins/2 &&
 		Notcoin.Turbo_boost_count > 0 &&
 		Notcoin.Count_400 == 0 &&
@@ -185,7 +190,7 @@ func (Notcoin *Notcoin) click() {
 	}
 
 	if parsed_resp.Ok && resp.status < 400 {
-		SuccessLogger.Printf("[%d] clicked and get %d coins, status = %d, balance = %d\n", Notcoin.UserId, count, resp.status, Notcoin.BalanceCoins)
+		SuccessLogger.Printf("[%d] clicked and get %d coins, status = %d, balance = %s\n", Notcoin.UserId, count, resp.status, Notcoin.BalanceCoins)
 	} else {
 		WarningLogger.Printf("[%d] not success clicked %d times, status = %d\n", Notcoin.UserId, count, resp.status)
 	}
