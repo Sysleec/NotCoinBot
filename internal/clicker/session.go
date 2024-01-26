@@ -2,9 +2,11 @@ package clicker
 
 import (
 	"bytes"
-	"github.com/Carcraftz/cclient"
 	"io/ioutil"
 	"log"
+
+	"github.com/Carcraftz/cclient"
+
 	//"crypto/tls"
 	"fmt"
 	"io"
@@ -16,6 +18,7 @@ import (
 
 	"compress/gzip"
 	"compress/zlib"
+
 	"github.com/andybalholm/brotli"
 
 	http "github.com/Carcraftz/fhttp"
@@ -87,46 +90,6 @@ func custm_err(text string, err error) error {
 
 func CreateSession() Session {
 	session := Session{}
-	//jar, _ := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List})
-
-	//var (
-	//	conn *tls.Conn
-	//	err  error
-	//)
-	//
-	//tlsConfig := http.DefaultTransport.(*http.Transport).TLSClientConfig
-
-	// prx, _ := url.Parse("http://67613eb50194b4d2c3bfd4612968fb194159047c:@proxy.zenrows.com:8001")
-
-	//client := &http.Client{
-	//Jar: jar,
-
-	//Transport: &http.Transport{
-	//	Proxy:           http.ProxyURL(prx),
-	//	TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	//},
-	//
-
-	//Transport: &http.Transport{
-	//	TLSHandshakeTimeout: 30 * time.Second,
-	//	DisableKeepAlives:   false,
-	//
-	//	TLSClientConfig: &tls.Config{
-	//		CipherSuites: []uint16{
-	//			tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-	//			tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-	//			tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-	//			tls.TLS_AES_128_GCM_SHA256,
-	//			tls.VersionTLS13,
-	//			tls.VersionTLS10,
-	//		},
-	//	},
-	//	DialTLS: func(network, addr string) (net.Conn, error) {
-	//		conn, err = tls.Dial(network, addr, tlsConfig)
-	//		return conn, err
-	//	},
-	//},
-	//}
 
 	allowRedirect := true
 

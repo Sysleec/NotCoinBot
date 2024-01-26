@@ -77,7 +77,7 @@ func (not *Notcoin) UpdateShop() {
 	var max_energy_limit, _ = strconv.Atoi(os.Getenv("max_energy_limit")) //# id= 1
 
 	shop_resp := not.Ses.Getreq(url_store)
-	fmt.Println("shop 80 shopresppbody", shop_resp.String())
+	// fmt.Println("shop 80 shopresppbody", shop_resp.String())
 	err := json.Unmarshal(shop_resp.body, &parsed_resp)
 	if err != nil {
 		WarningLogger.Printf("[%v] update shop items is not ok, err: %v\n", not.UserId, err.Error())

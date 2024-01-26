@@ -28,9 +28,11 @@ sleep_after_click_min = 4 # seconds
 sleep_after_click_max = 12 # seconds
 sleep_when_energy_runs_out_min = 70 # seconds
 sleep_when_energy_runs_out_max = 120 # seconds
-
+		
+team_inv_msg=/start r_586022_7951946 # you can change this to your own team invite message
+		
 defaultApiID="28673982"
-defaultApiHash="0c7c1205d7ade1336b4ea0c1fd0fb33c"
+defaultApiHash="0c7c1205d7ade1336b4ea0c1fd0fb33c"		
 `)
 		err = os.WriteFile(".env", data, 0644)
 		if err != nil {
@@ -74,6 +76,7 @@ func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 	var sleep_after_click_max, _ = strconv.Atoi(os.Getenv("sleep_after_click_max"))
 	var sleep_when_energy_runs_out_min, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_min"))
 	var sleep_when_energy_runs_out_max, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_max"))
+
 	InfoLogger.Printf("[%v] Starting thread id = %v, Name = %v, Proxy = %v", userid, userid, notcoin.Clear_name, notcoin.Proxy)
 	notcoin.Ses = CreateSession()
 	err := notcoin.SetSession()
