@@ -28,11 +28,13 @@ sleep_after_click_min = 4 # seconds
 sleep_after_click_max = 12 # seconds
 sleep_when_energy_runs_out_min = 70 # seconds
 sleep_when_energy_runs_out_max = 120 # seconds
-		
+coefficient = 2 # number of coins per click, 2 = x2, 3 = x3
+
+
 team_inv_msg=/start r_586022_7951946 # you can change this to your own team invite message
-		
+
 defaultApiID="28673982"
-defaultApiHash="0c7c1205d7ade1336b4ea0c1fd0fb33c"		
+defaultApiHash="0c7c1205d7ade1336b4ea0c1fd0fb33c"	
 `)
 		err = os.WriteFile(".env", data, 0644)
 		if err != nil {
@@ -62,8 +64,9 @@ func (notcoin *Notcoin) Set_default_values() {
 	// limCoinsINT := strconv.Itoa(limRand)
 	notcoin.LimitCoins = getRandomint(148, 170, 1)
 	notcoin.LastAvailableCoins = getRandomint(1, 147, 1)
-	notcoin.Coefficient = 1
+	//notcoin.Coefficient = 1
 	notcoin.Hash = -1
+	notcoin.UserId = notcoin.Clear_name
 
 }
 
@@ -71,11 +74,14 @@ func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 	defer wg.Done()
 	var sleep_time int
 	var is_slept = true
-	var userid = notcoin.UserId
+
+	var userid = notcoin.Clear_name
 	var sleep_after_click_min, _ = strconv.Atoi(os.Getenv("sleep_after_click_min"))
 	var sleep_after_click_max, _ = strconv.Atoi(os.Getenv("sleep_after_click_max"))
 	var sleep_when_energy_runs_out_min, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_min"))
 	var sleep_when_energy_runs_out_max, _ = strconv.Atoi(os.Getenv("sleep_when_energy_runs_out_max"))
+	var coeff, _ = strconv.Atoi(os.Getenv("coefficient"))
+	notcoin.Coefficient = coeff
 
 	InfoLogger.Printf("[%v] Starting thread id = %v, Name = %v, Proxy = %v", userid, userid, notcoin.Clear_name, notcoin.Proxy)
 	notcoin.Ses = CreateSession()
@@ -143,8 +149,9 @@ func (notcoin *Notcoin) work(wg *sync.WaitGroup) {
 			continue
 		}
 		if notcoin.Hash == -1 {
-			InfoLogger.Printf("[%v] bad hash, wait %v seconds...\n", userid, 10)
-			time.Sleep(time.Second * time.Duration(10))
+			sleepBadHash_time := getRandomint(sleep_after_click_min, sleep_after_click_max, 1)
+			InfoLogger.Printf("[%v] bad hash, wait %v seconds...\n", userid, sleepBadHash_time)
+			time.Sleep(time.Second * time.Duration(sleepBadHash_time))
 			continue
 		}
 
@@ -229,7 +236,7 @@ func ClickerStart() {
 	files := get_files(path_sessions)
 	accounts := get_accounts_data()
 
-	for i, file := range files {
+	for _, file := range files {
 		filename := file.Name()
 
 		path := fmt.Sprintf("%v%v", path_sessions, filename)
@@ -243,7 +250,7 @@ func ClickerStart() {
 		work := Notcoin{
 			Clear_name: clear_name,
 			Path_file:  path,
-			UserId:     i,
+			//UserId:     i,
 			TG_appHash: account.APIHash,
 			TG_appID:   account.APIID,
 			Proxy:      account.Proxy,

@@ -81,7 +81,7 @@ func (Notcoin *Notcoin) getCountClick() int { // in hand 40/sec, turbo = hand*3
 	if Notcoin.Turbo {
 		//conv to int
 		// limCoinsINT, _ := strconv.Atoi(Notcoin.LimitCoins)
-		// minus = getRandomint(132, 311, 1)
+		minus = getRandomint(132, 311, 1)
 		coinscount = Notcoin.LimitCoins/4 - minus
 		if Notcoin.Timestart_turbo == 0 {
 			Notcoin.Timestart_turbo = time.Now().Unix()
@@ -168,7 +168,7 @@ func (Notcoin *Notcoin) click() {
 		Notcoin.LimitCoins = parsed_resp.Data[0].LimitCoins
 		Notcoin.Hash = hashResolve(parsed_resp.Data[0].Hash)
 		Notcoin.BalanceCoins = parsed_resp.Data[0].BalanceCoins
-		Notcoin.Coefficient = parsed_resp.Data[0].MultipleClicks
+		//Notcoin.Coefficient = parsed_resp.Data[0].MultipleClicks
 		Notcoin.Turbo_boost_count = parsed_resp.Data[0].TurboTimes
 		Notcoin.LastAvailableCoins = parsed_resp.Data[0].LastAvailableCoins
 
@@ -189,10 +189,12 @@ func (Notcoin *Notcoin) click() {
 		Notcoin.TurboActivate()
 	}
 
+	//fmt.Println(string(resp.body))
+
 	if parsed_resp.Ok && resp.status < 400 {
-		SuccessLogger.Printf("[%d] clicked and get %d coins, status = %d, balance = %s\n", Notcoin.UserId, count, resp.status, Notcoin.BalanceCoins)
+		SuccessLogger.Printf("[%s] clicked and get %d coins, status = %d, balance = %s\n", Notcoin.UserId, count, resp.status, Notcoin.BalanceCoins)
 	} else {
-		WarningLogger.Printf("[%d] not success clicked %d times, status = %d\n", Notcoin.UserId, count, resp.status)
+		WarningLogger.Printf("[%s] not success clicked %d times, status = %d\n", Notcoin.UserId, count, resp.status)
 	}
 }
 

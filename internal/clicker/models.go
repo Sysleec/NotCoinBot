@@ -75,8 +75,9 @@ type Notcoin struct {
 	TGWebAppData string
 
 	Need_sleep_10 bool
-	UserId        int
-	Coefficient   int // multipleClicks
+	//UserId        int
+	UserId      string
+	Coefficient int // multipleClicks
 
 	Fullenergy_boost   int
 	Count_400          int
